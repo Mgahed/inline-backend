@@ -393,7 +393,7 @@
         }
 
         .mrtechnawy:hover{
-            box-shadow: 5px 5px rgb(136 136 136 / 50%);
+            box-shadow: 11px 13px 8px rgb(2 123 154 / 50%);
         }
     </style>
 
