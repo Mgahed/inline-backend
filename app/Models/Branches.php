@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branches extends Model
 {
+    public function services()
+    {
+        return $this->belongsToMany(Services::class);
+    }
     use HasFactory;
 }
