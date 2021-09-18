@@ -9,6 +9,14 @@ class ServiceProvider extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'email',
+        'address',
+        'phone_number',
+        'type'
+    ];
+
     public function branches()
     {
         return $this->hasMany(Branches::class, 'service_provider_id', 'id');

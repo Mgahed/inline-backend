@@ -10,6 +10,8 @@ class Branches extends Model
 
     use HasFactory;
 
+    protected $table = 'branches';
+
     protected $fillable = [
         'service_provider_id',
         'name',

@@ -10,14 +10,13 @@ class Services extends Model
 
     protected $fillable = [
         'name',
-        'email',
-        'address',
-        'phone_number',
-        'type'
+        'cost'
     ];
+
     public function branches()
     {
         return $this->belongsToMany(Branches::class);
     }
+
     use HasFactory;
 }
