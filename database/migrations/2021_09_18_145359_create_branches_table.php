@@ -15,14 +15,14 @@ class CreateBranchesTable extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_provider_id');
-            $table->foreign('service_provider_id')->references('id')->on('service_providers');
             $table->string('name');
             $table->string('email');
             $table->string('address');
             $table->string('phone_number');
-            $table->time('start_date');
-            $table->time('close_date');
+            $table->time('start_time');
+            $table->time('close_time');
+            $table->Integer('service_provider_id');
+            $table->foreign('service_provider_id')->references('id')->on('service_providers');
             $table->timestamps();
         });
     }

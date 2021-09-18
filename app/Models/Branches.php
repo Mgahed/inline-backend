@@ -7,9 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branches extends Model
 {
+
+    use HasFactory;
+
+    protected $fillable = [
+        'service_provider_id',
+        'name',
+        'email',
+        'address',
+        'phone_number',
+        'start_time',
+        'close_time'
+    ];
+
     public function services()
     {
         return $this->belongsToMany(Services::class);
     }
-    use HasFactory;
+
+    public function branches()
+    {
+        return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+    }
 }
