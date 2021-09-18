@@ -4,7 +4,7 @@
 
 End point: https://inline.mrtechnawy.com/api/auth/register
 
-Method: ```html <span style="color:red;">post</span> ```
+Method: <span style="color:red;">post</span>
 
 body: 
 
