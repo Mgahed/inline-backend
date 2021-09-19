@@ -22,13 +22,14 @@ class Branches extends Model
         'close_time'
     ];
 
-    public function services()
-    {
-        return $this->belongsToMany(Services::class);
-    }
 
-    public function branches()
+    public function serviceprovider()
     {
         return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(services::class, 'branches_services');
     }
 }

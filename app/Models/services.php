@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Services extends Model
 {
+    use HasFactory;
+
+    protected $table = 'services';
 
     protected $fillable = [
         'name',
@@ -15,8 +18,7 @@ class Services extends Model
 
     public function branches()
     {
-        return $this->belongsToMany(Branches::class);
+        $this->belongsToMany(Branches::class, 'branches_services');
     }
 
-    use HasFactory;
 }
