@@ -79,11 +79,23 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
-        return response()->json([
-            'status' => true,
-            'message' => 'User successfully registered',
-            'user' => $user
-        ], 201);
+        $credentials = ['phone_number' => $user->phone_number, 'password' => $request->password];
+
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json([
+                "status" => false,
+                'message' => 'Unauthorized user check token',
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+
+        return $this->createNewToken($token);
+
+//        return response()->json([
+//            'status' => true,
+//            'message' => 'User successfully registered',
+//            'user' => $user
+//        ], 201);
     }
 
 
