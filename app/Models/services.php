@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Services extends Model
+class services extends Model
 {
     use HasFactory;
 
@@ -19,6 +19,11 @@ class Services extends Model
     public function branches()
     {
         $this->belongsToMany(Branches::class, 'branches_services');
+    }
+
+    public function reservations()
+    {
+        $this->hasMany(Reservation::class,'service_id','id');
     }
 
 }
