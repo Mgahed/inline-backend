@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,7 +11,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'social']]);
     }
 
     /**
@@ -47,6 +48,40 @@ class AuthController extends Controller
                 'error' => 'Unauthorized'
             ], 401);
         }
+
+        return $this->createNewToken($token);
+    }
+
+    public function social(Request $request)
+    {
+//        return $request;
+        $validator = Validator::make($request->all(), [
+            'email' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                'message' => 'Can not login user, Check errors response',
+                "errors" => $validator->errors()
+            ], 422);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json([
+                "status" => false,
+                'message' => 'user not exist please register'
+            ], 401);
+        }
+        if (!$token = Auth::login($user)) {
+            return response()->json([
+                "status" => false,
+                'message' => 'Unauthorized user check token',
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+//        return $token;
 
         return $this->createNewToken($token);
     }
