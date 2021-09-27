@@ -406,11 +406,12 @@
 <body class="antialiased">
 <div
     class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-    <a href="https://mrtechnawy.com" target="_blank">
+    <a href="{{route('login')}}">
         <h1 class="mrtechnawy" style="background-color: #027B9A;color: white;border-radius: 22px;padding: 20px;font-size: 40px;">
-            Mr Technawy
+            Login
         </h1>
     </a>
+{{--    <small>powered by mrtechnawy.com</small>--}}
 </div>
 </body>
 </html>

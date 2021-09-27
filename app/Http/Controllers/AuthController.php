@@ -41,7 +41,7 @@ class AuthController extends Controller
         }
 
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth('api')->attempt($credentials)) {
             return response()->json([
                 "status" => false,
                 'message' => 'Unauthorized user check token',
@@ -74,7 +74,7 @@ class AuthController extends Controller
                 'message' => 'user not exist please register'
             ], 401);
         }
-        if (!$token = Auth::login($user)) {
+        if (!$token = auth('api')->login($user)) {
             return response()->json([
                 "status" => false,
                 'message' => 'Unauthorized user check token',
@@ -116,7 +116,7 @@ class AuthController extends Controller
 
         $credentials = ['phone_number' => $user->phone_number, 'password' => $request->password];
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth('api')->attempt($credentials)) {
             return response()->json([
                 "status" => false,
                 'message' => 'Unauthorized user check token',
@@ -141,7 +141,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth('api')->logout();
 
         return response()->json([
             'status' => true,
@@ -156,7 +156,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
+        return $this->createNewToken(auth('api')->refresh());
     }
 
     /**
@@ -170,7 +170,7 @@ class AuthController extends Controller
             [
                 'status' => true,
 //                'message' => 'User successfully registered',
-                'user' => auth()->user()
+                'user' => auth('api')->user()
             ], 201);
     }
 
@@ -187,8 +187,8 @@ class AuthController extends Controller
             'status' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
+            'user' => auth('api')->user()
         ]);
     }
 }
