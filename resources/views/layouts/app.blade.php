@@ -36,7 +36,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{--Request::is('') ? 'active' : ''--}}" href="#">{{ __('Service Providers') }}</a>
+                        <a class="nav-link {{Request::is('service-provider/*') ? 'active' : ''}}" href="{{route('all.service.provider')}}">{{ __('Service Providers') }}</a>
                     </li>
                 </ul>
 

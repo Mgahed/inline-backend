@@ -22,26 +22,28 @@
                             </div>
                         @endif
                         @php($i=1)
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">email</th>
-                                <th scope="col">Phone Number</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($users as $user)
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
                                 <tr>
-                                    <th scope="row">{{$i++}}</th>
-                                    <td>{{$user->name}}</td>
-                                    <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
-                                    <td><a href="tel:{{$user->phone_number}}">{{$user->phone_number}}</a></td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">email</th>
+                                    <th scope="col">Phone Number</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <th scope="row">{{$i++}}</th>
+                                        <td>{{$user->name}}</td>
+                                        <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
+                                        <td><a href="tel:{{$user->phone_number}}">{{$user->phone_number}}</a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
