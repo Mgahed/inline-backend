@@ -35,7 +35,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-
+                    <li class="nav-item">
+                        <a class="nav-link {{--Request::is('') ? 'active' : ''--}}" href="#">{{ __('Service Providers') }}</a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -55,6 +57,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="telescope">
+                                    {{ __('Telescope') }}
+                                </a>
                                 @if (Route::has('register'))
                                     @if (Auth::user())
                                         {{--                                <li class="nav-item">--}}
