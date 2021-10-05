@@ -7,15 +7,16 @@
             <h5>
                 <div class="row">
                     <div class="col-md-6">
+                        <span
+                            class="text-muted">Service Provider Location:</span><br> {!! $service_provider->address !!}
+                        <br><br>
+                    </div>
+                    <div class="col-md-6">
                         <span class="text-muted">Service Provider Name:</span> {{$service_provider->name}}<br><br>
                         <span class="text-muted">Service Provider Email:</span> <a
                             href="mailto:{{$service_provider->email}}">{{$service_provider->email}}</a><br><br>
                         <span class="text-muted">Service Provider phone number:</span> <a
                             href="tel:{{$service_provider->phone_number}}">{{$service_provider->phone_number}}</a>
-                    </div>
-                    <div class="col-md-6">
-                        <span
-                            class="text-muted">Service Provider Location:</span><br> {!! $service_provider->address !!}
                     </div>
                 </div>
             </h5>
@@ -177,9 +178,8 @@
                                             <td><a target="_blank"
                                                    href="{{$branch->address}}">{{$branch->name}}
                                                     Location</a></td>
-                                            <td>{{$branch->start_time}}</td>
-                                            <td>{{$branch->close_time}}</td>
-                                            <td><a href="{{--{{route('service.provider.details',$branch->id)}}--}}"
+                                            <td>{{\Carbon\Carbon::createFromFormat('H:i:s',$branch->start_time)->format('h:i A')}}</td>
+                                            <td>{{\Carbon\Carbon::createFromFormat('H:i:s',$branch->close_time)->format('h:i A')}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

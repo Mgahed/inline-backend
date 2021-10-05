@@ -57,7 +57,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="telescope">
+                                <a class="dropdown-item" href="https://inline.mrtechnawy.com/telescope">
                                     {{ __('Telescope') }}
                                 </a>
                                 @if (Route::has('register'))

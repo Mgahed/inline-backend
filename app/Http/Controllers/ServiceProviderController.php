@@ -63,4 +63,35 @@ class ServiceProviderController extends Controller
         $service_provider = ServiceProvider::with('branches')->find($id);
         return view('serviceprovider.provider', compact('service_provider'));
     }
+
+
+
+
+
+    ///////////////////////////////////////////////////
+    ///                   api                       ///
+    ///////////////////////////////////////////////////
+    public function all_api(Request $request)
+    {
+        $providers = ServiceProvider::where('type', $request->provider_type)->get();
+        if (!$providers) {
+            return response()->json([
+                "status" => false,
+                'message' => 'Maybe you selected wrong type',
+            ], 401);
+        }
+
+        if (!$providers->count()) {
+            return response()->json([
+                "status" => false,
+                'message' => 'No providers for this type'
+            ], 401);
+        }
+
+        return response()->json([
+            "status" => true,
+            'providers' => $providers
+
+        ], 200);
+    }
 }

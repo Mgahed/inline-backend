@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MyController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ServiceProviderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +27,11 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
+});
+Route::group(['middleware' => 'api'], function () {
+    Route::group(['middleware' => 'auth:api', 'prefix' => 'provider'], function () {
+        Route::get('all', [ServiceProviderController::class, 'all_api']);
+    });
 });
 
 Route::get('sum', [MyController::class, 'my_controller'])->middleware('api');
