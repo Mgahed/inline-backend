@@ -7,6 +7,7 @@
             <h5>
                 <div class="row">
                     <div class="col-md-6">
+                        <img style="width: 50px;" src="{{asset($service_provider->image)}}" alt="{{$service_provider->name}} image">
                         <span
                             class="text-muted">Service Provider Location:</span><br> {!! $service_provider->address !!}
                         <br><br>

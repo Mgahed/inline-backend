@@ -14,7 +14,8 @@ class ServiceProvider extends Model
         'email',
         'address',
         'phone_number',
-        'type'
+        'type',
+        'image'
     ];
 
     public function branches()

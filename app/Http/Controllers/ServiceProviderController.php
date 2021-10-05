@@ -17,6 +17,7 @@ class ServiceProviderController extends Controller
             'address' => 'required',
             'phone_number' => 'required|numeric',
             'type' => 'required',
+            'image' => 'mimes:jpeg,jpg,png|required|max:5000'
         ];
     }
 
@@ -45,12 +46,24 @@ class ServiceProviderController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
+
+        ////Image section
+        $image = $request->file('image');
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($image->getClientOriginalExtension());
+        $image_name = $name_gen . '.' . $img_ext;
+        $location = 'images/providers/';
+        $last_image = $location . $image_name;
+        $image->move($location, $image_name);
+        ////End Image section
+
         $new_service_provider = ServiceProvider::create([
             'name' => $request->name,
             'email' => $request->email,
             'address' => $request->address,
             'phone_number' => $request->phone_number,
-            'type' => $request->type
+            'type' => $request->type,
+            'image' => $last_image
         ]);
         if ($new_service_provider) {
             return redirect()->route('all.service.provider');
@@ -86,6 +99,10 @@ class ServiceProviderController extends Controller
                 "status" => false,
                 'message' => 'No providers for this type'
             ], 401);
+        }
+
+        foreach ($providers as $provider) {
+            $provider->image = 'https://inline.mrtechnawy.com/' . $provider->image;
         }
 
         return response()->json([

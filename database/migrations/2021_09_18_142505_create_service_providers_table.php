@@ -20,6 +20,7 @@ class CreateServiceProvidersTable extends Migration
             $table->string('address');
             $table->string('phone_number');
             $table->string('type');
+            $table->string('image');
             $table->timestamps();
         });
     }
