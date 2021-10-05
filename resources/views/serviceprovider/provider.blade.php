@@ -3,6 +3,23 @@
 @section('content')
 
     <div class="container">
+        <div class="mt-3">
+            <h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="text-muted">Service Provider Name:</span> {{$service_provider->name}}<br><br>
+                        <span class="text-muted">Service Provider Email:</span> <a
+                            href="mailto:{{$service_provider->email}}">{{$service_provider->email}}</a><br><br>
+                        <span class="text-muted">Service Provider phone number:</span> <a
+                            href="tel:{{$service_provider->phone_number}}">{{$service_provider->phone_number}}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <span
+                            class="text-muted">Service Provider Location:</span><br> {!! $service_provider->address !!}
+                    </div>
+                </div>
+            </h5>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-5 mt-5">
                 @if (session('fail'))
@@ -14,12 +31,13 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">{{ __('Add service provider') }}</div>
+                    <div class="card-header">{{ __('Add branch for') }} <span
+                            class="text-danger">{{$service_provider->name}}</span></div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('add.service.provider') }}">
+                        <form method="POST" action="{{ route('add.branch') }}">
                             @csrf
-
+                            <input type="hidden" name="provider_id" value="{{$service_provider->id}}">
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -88,16 +106,22 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
+                                <label for="start-time"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('start time') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="type" type="text" list="typeList" class="form-control" name="type"
-                                           required autocomplete="new-type" value="{{ old('type') }}">
-                                    <datalist id="typeList">
-                                        <option value="banking">
-                                        <option value="telecommunication">
-                                        <option value="clinic">
-                                    </datalist>
+                                    <input id="start-time" type="time" class="form-control" name="start_time"
+                                           required autocomplete="new-type" value="{{ old('start time') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="close-time"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('close time') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="close-time" type="time" class="form-control" name="close_time"
+                                           required autocomplete="new-type" value="{{ old('close time') }}">
                                 </div>
                             </div>
 
@@ -123,41 +147,39 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">{{ __('Service Providers') }}</div>
+                    <div class="card-header"><span
+                            class="text-danger">{{$service_provider->name}}</span> {{ __('Branches') }}</div>
 
                     <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                        @if (!$all_service_providers->count())
-                            <div class="alert alert-danger"> No Service providers yet</div>
+                        @if (!$service_provider->branches->count())
+                            <div class="alert alert-danger"> No branches for {{$service_provider->name}} yet</div>
                         @else
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-{{--                                        <th scope="col">email</th>--}}
-{{--                                        <th scope="col">Phone Number</th>--}}
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone number</th>
                                         <th scope="col">Address</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">Start Time</th>
+                                        <th scope="col">Close Time</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @foreach ($all_service_providers as $service_provider)
+                                    @foreach ($service_provider->branches as $branch)
                                         <tr>
-                                            <td>{{$service_provider->name}}</td>
-{{--                                            <td>--}}
-{{--                                                <a href="mailto:{{$service_provider->email}}">{{$service_provider->email}}</a>--}}
-{{--                                            </td>--}}
-{{--                                            <td>--}}
-{{--                                                <a href="tel:{{$service_provider->phone_number}}">{{$service_provider->phone_number}}</a>--}}
-{{--                                            </td>--}}
+                                            <td>{{$branch->name}}</td>
+                                            <td><a href="mailto:{{$branch->email}}">{{$branch->email}}</a></td>
+                                            <td><a href="tel:{{$branch->phone_number}}">{{$branch->phone_number}}</a>
+                                            </td>
                                             <td><a target="_blank"
-                                                   href="{{$service_provider->address}}">{{$service_provider->name}}
+                                                   href="{{$branch->address}}">{{$branch->name}}
                                                     Location</a></td>
-                                            <td>{{$service_provider->type}}</td>
-                                            <td><a href="{{route('service.provider.details',$service_provider->id)}}"
-                                                   class="btn btn-outline-success">Details</a></td>
+                                            <td>{{$branch->start_time}}</td>
+                                            <td>{{$branch->close_time}}</td>
+                                            <td><a href="{{--{{route('service.provider.details',$branch->id)}}--}}"
                                         </tr>
                                     @endforeach
                                     </tbody>

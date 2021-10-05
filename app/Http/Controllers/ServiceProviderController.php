@@ -55,6 +55,12 @@ class ServiceProviderController extends Controller
         if ($new_service_provider) {
             return redirect()->route('all.service.provider');
         }
-        return redirect()->back()->with('fail','Couldn\'t add service provider please try again');
+        return redirect()->back()->with('fail', 'Couldn\'t add service provider please try again');
+    }
+
+    public function details($id)
+    {
+        $service_provider = ServiceProvider::with('branches')->find($id);
+        return view('serviceprovider.provider', compact('service_provider'));
     }
 }

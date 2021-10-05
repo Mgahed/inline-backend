@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ServiceProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => 'service-provider'], function () {
         Route::get('/all', [ServiceProviderController::class, 'all'])->name('all.service.provider');
         Route::post('/add', [ServiceProviderController::class, 'add'])->name('add.service.provider');
+        Route::get('/{id}', [ServiceProviderController::class, 'details'])->name('service.provider.details');
     });
+
+    ////////// branches
+    Route::group(['prefix' => 'branch'], function () {
+        Route::post('/add', [BranchController::class, 'add'])->name('add.branch');
+//        Route::get('/{id}', [BranchController::class, 'details'])->name('service.provider.details');
+    });
+
 });
