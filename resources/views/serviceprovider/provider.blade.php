@@ -7,9 +7,16 @@
             <h5>
                 <div class="row">
                     <div class="col-md-6">
-                        <img style="width: 50px;" src="{{asset($service_provider->image)}}" alt="{{$service_provider->name}} image">
+                        <img style="width: 50px;" src="{{asset($service_provider->image)}}"
+                             alt="{{$service_provider->name}} image">
                         <span
-                            class="text-muted">Service Provider Location:</span><br> {!! $service_provider->address !!}
+                            class="text-muted">Service Provider Location:</span><br>
+                        @if (strpos($service_provider->address, 'iframe'))
+                            {!! $service_provider->address !!}
+                        @else
+                            <iframe src="{{ $service_provider->address }}" width="400" height="300" style="border:0;"
+                                    allowfullscreen="" loading="lazy"></iframe>
+                        @endif
                         <br><br>
                     </div>
                     <div class="col-md-6">

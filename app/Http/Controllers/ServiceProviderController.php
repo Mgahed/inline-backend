@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceProvider;
-use App\Rules\Iframe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +14,7 @@ class ServiceProviderController extends Controller
         return [
             'name' => 'required',
             'email' => 'required|unique:service_providers',
-            'address' => ['required', new Iframe],
+            'address' => 'required',
             'phone_number' => 'required|numeric',
             'type' => 'required',
             'image' => 'mimes:jpeg,jpg,png|required|max:5000'
@@ -53,10 +52,11 @@ class ServiceProviderController extends Controller
         $name_gen = hexdec(uniqid());
         $img_ext = strtolower($image->getClientOriginalExtension());
         $image_name = $name_gen . '.' . $img_ext;
-        $location = 'images/providers/';
+        $location = 'images/providers/';//public in server
         $last_image = $location . $image_name;
         $image->move($location, $image_name);
         ////End Image section
+
 
         $new_service_provider = ServiceProvider::create([
             'name' => $request->name,
