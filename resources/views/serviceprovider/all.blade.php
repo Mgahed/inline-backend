@@ -151,9 +151,9 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-{{--                                        <th scope="col">email</th>--}}
+                                        <th scope="col">email</th>
 {{--                                        <th scope="col">Phone Number</th>--}}
-                                        <th scope="col">Address</th>
+{{--                                        <th scope="col">Address</th>--}}
                                         <th scope="col">Type</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -163,15 +163,15 @@
                                     @foreach ($all_service_providers as $service_provider)
                                         <tr>
                                             <td>{{$service_provider->name}}</td>
-{{--                                            <td>--}}
-{{--                                                <a href="mailto:{{$service_provider->email}}">{{$service_provider->email}}</a>--}}
-{{--                                            </td>--}}
+                                            <td>
+                                                <a href="mailto:{{$service_provider->email}}">{{$service_provider->email}}</a>
+                                            </td>
 {{--                                            <td>--}}
 {{--                                                <a href="tel:{{$service_provider->phone_number}}">{{$service_provider->phone_number}}</a>--}}
 {{--                                            </td>--}}
-                                            <td><a target="_blank"
-                                                   href="{{$service_provider->address}}">{{$service_provider->name}}
-                                                    Location</a></td>
+{{--                                            <td><a target="_blank"--}}
+{{--                                                   href="{{$service_provider->address}}">{{$service_provider->name}}--}}
+{{--                                                    Location</a></td>--}}
                                             <td>{{$service_provider->type}}</td>
                                             <td><a href="{{route('service.provider.details',$service_provider->id)}}"
                                                    class="btn btn-outline-success">Details</a></td>
