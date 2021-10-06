@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceProvider;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -110,6 +111,21 @@ class ServiceProviderController extends Controller
             "status" => true,
             'providers' => $providers
 
-        ], 200);
+        ], 201);
+    }
+
+    public function details_api(Request $request)
+    {
+        $service_provider = ServiceProvider::with('branches')->find($request->id);
+        if (!$service_provider) {
+            return response()->json([
+                "status" => false,
+                'message' => 'Service provider not found'
+            ], 401);
+        }
+        return response()->json([
+            "status" => true,
+            "Provider" => $service_provider
+        ], 201);
     }
 }

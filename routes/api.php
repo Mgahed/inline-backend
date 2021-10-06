@@ -31,7 +31,9 @@ Route::group([
 Route::group(['middleware' => 'api'], function () {
     Route::group(['middleware' => 'auth:api', 'prefix' => 'provider'], function () {
         Route::get('all', [ServiceProviderController::class, 'all_api']);
+        Route::get('details', [ServiceProviderController::class, 'details_api']);
     });
 });
 
+Route::get('google-map',[MyController::class, 'google_map'])->middleware('api');
 Route::get('sum', [MyController::class, 'my_controller'])->middleware('api');
