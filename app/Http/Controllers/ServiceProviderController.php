@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceProvider;
+use App\Rules\Iframe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +15,7 @@ class ServiceProviderController extends Controller
         return [
             'name' => 'required',
             'email' => 'required|unique:service_providers',
-            'address' => 'required',
+            'address' => ['required', new Iframe],
             'phone_number' => 'required|numeric',
             'type' => 'required',
             'image' => 'mimes:jpeg,jpg,png|required|max:5000'
