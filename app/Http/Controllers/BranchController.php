@@ -17,6 +17,8 @@ class BranchController extends Controller
             'email' => 'required|unique:branches',
             'address' => 'required',
             'phone_number' => 'required|numeric',
+            'lat' => 'required|numeric',
+            'lon' => 'required|numeric',
             'start_time' => 'required',
             'close_time' => 'required'
         ];
@@ -34,6 +36,8 @@ class BranchController extends Controller
             'email' => $request->email,
             'address' => $request->address,
             'phone_number' => $request->phone_number,
+            'lat' => $request->lat,
+            'lon' => $request->lon,
             'start_time' => $request->start_time,
             'close_time' => $request->close_time,
             'service_provider_id' => $request->provider_id

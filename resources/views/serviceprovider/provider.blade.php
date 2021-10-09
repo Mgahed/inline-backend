@@ -98,6 +98,40 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="lat"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('latitude') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="lat" type="text"
+                                           class="form-control @error('lat') is-invalid @enderror"
+                                           name="lat" value="{{ old('lat') }}" required>
+
+                                    @error('lat')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lon"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('longitude') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="lon" type="text"
+                                           class="form-control @error('lon') is-invalid @enderror"
+                                           name="lon" value="{{ old('lon') }}" required>
+
+                                    @error('lon')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="address"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 

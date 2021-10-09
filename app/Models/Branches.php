@@ -18,6 +18,8 @@ class Branches extends Model
         'email',
         'address',
         'phone_number',
+        'lat',
+        'lon',
         'start_time',
         'close_time'
     ];

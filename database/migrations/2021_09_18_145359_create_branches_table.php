@@ -19,6 +19,8 @@ class CreateBranchesTable extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('phone_number');
+            $table->unsignedDouble('lat');
+            $table->unsignedDouble('lon');
             $table->time('start_time');
             $table->time('close_time');
             $table->Integer('service_provider_id');
