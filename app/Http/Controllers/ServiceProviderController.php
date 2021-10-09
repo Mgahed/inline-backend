@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceProvider;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,6 +19,21 @@ class ServiceProviderController extends Controller
             'type' => 'required',
             'image' => 'mimes:jpeg,jpg,png|required|max:5000'
         ];
+    }
+
+
+    public function distance($lat1, $lon1, $lat2, $lon2)
+    {
+        $unit = "K";
+
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+
+        return ceil($miles * 1.609344);
     }
 
 //    protected function getMSG()
@@ -117,15 +131,31 @@ class ServiceProviderController extends Controller
     public function details_api(Request $request)
     {
         $service_provider = ServiceProvider::with('branches')->find($request->id);
+        $lat1 = $request->lat;
+        $lon1 = $request->lon;
+        foreach ($service_provider->branches as $branch) {
+            $distance = $this->distance($lat1, $lon1, $branch->lat, $branch->lon);
+            $branch->distance = $distance;
+        }
         if (!$service_provider) {
             return response()->json([
                 "status" => false,
                 'message' => 'Service provider not found'
             ], 401);
         }
+        $collection = collect($service_provider->branches);
+        $sorted = $collection->sortBy('distance');
+        unset($service_provider->branches);
+        if (!$request->lat || !$request->lon) {
+            return response()->json([
+                "status" => false,
+                'message' => 'Missing lat or lon'
+            ], 401);
+        }
         return response()->json([
             "status" => true,
-            "Provider" => $service_provider
+            "Provider" => $service_provider,
+            "branches" => $sorted->values()->all()
         ], 201);
     }
 }
