@@ -207,6 +207,7 @@
                                         <th scope="col">Address</th>
                                         <th scope="col">Start Time</th>
                                         <th scope="col">Close Time</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -222,6 +223,8 @@
                                                     Location</a></td>
                                             <td>{{\Carbon\Carbon::createFromFormat('H:i:s',$branch->start_time)->format('h:i A')}}</td>
                                             <td>{{\Carbon\Carbon::createFromFormat('H:i:s',$branch->close_time)->format('h:i A')}}</td>
+                                            <td><a class="btn btn-outline-info"
+                                                   href="{{route('branch.services',$branch->id)}}">Services</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

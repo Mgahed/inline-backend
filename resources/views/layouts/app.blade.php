@@ -38,6 +38,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{Request::is('service-provider/*') ? 'active' : ''}}" href="{{route('all.service.provider')}}">{{ __('Service Providers') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{Request::is('service/*') ? 'active' : ''}}" href="{{route('all.service')}}">{{ __('Services') }}</a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
