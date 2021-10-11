@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\ServiceProviderController;
 use Illuminate\Support\Facades\Route;
@@ -29,9 +30,15 @@ Route::group([
     Route::get('user-profile', [AuthController::class, 'userProfile']);
 });
 Route::group(['middleware' => 'api'], function () {
+    ///// provider
     Route::group(['middleware' => 'auth:api', 'prefix' => 'provider'], function () {
         Route::get('all', [ServiceProviderController::class, 'all_api']);
         Route::get('details', [ServiceProviderController::class, 'details_api']);
+    });
+
+    ///// branches
+    Route::group(['middleware' => 'auth:api', 'prefix' => 'branch'], function () {
+        Route::get('details', [BranchController::class, 'details_api']);
     });
 });
 

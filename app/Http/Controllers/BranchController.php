@@ -59,8 +59,8 @@ class BranchController extends Controller
     public function assign_services(Request $request)
     {
         $check = BranchService::where([
-            ['branches_id','=',$request->branch_id],
-            ['services_id','=',$request->service_id]
+            ['branches_id', '=', $request->branch_id],
+            ['services_id', '=', $request->service_id]
         ])->get();
         if ($check->count()) {
             return redirect()->back()->with('fail', 'Couldn\'t assign service that already assigned');
@@ -73,5 +73,25 @@ class BranchController extends Controller
             return redirect()->back()->with('fail', 'Couldn\'t assign service to this branch');
         }
         return redirect()->back()->with('success', 'Service assigned successfully');
+    }
+
+
+    ///////////////////////////////////////////////////
+    ///                   api                       ///
+    ///////////////////////////////////////////////////
+
+    public function details_api(Request $request)
+    {
+        $branch = Branches::with('services')->find($request->id);
+        if (!$branch->services->count()) {
+            return response()->json([
+                "status" => false,
+                'message' => 'No services for this branch, we will add later',
+            ], 401);
+        }
+        return response()->json([
+            "status" => true,
+            "services" => $branch->services
+        ], 201);
     }
 }
