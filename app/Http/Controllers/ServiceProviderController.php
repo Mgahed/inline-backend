@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -130,7 +131,9 @@ class ServiceProviderController extends Controller
 
     public function details_api(Request $request)
     {
-        $service_provider = ServiceProvider::with('branches')->find($request->id);
+        $service_provider = ServiceProvider::with(array('branches' => function ($query) {
+            $query->whereTime('start_time', '<=', Carbon::now()->addHour(2)->format('H:i:s'))->whereTime('close_time', '>=', Carbon::now()->format('H:i:s'));
+        }))->find($request->id);
         $lat1 = $request->lat;
         $lon1 = $request->lon;
         foreach ($service_provider->branches as $branch) {
