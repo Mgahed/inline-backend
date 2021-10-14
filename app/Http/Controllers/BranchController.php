@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Branches;
 use App\Models\BranchService;
 use App\Models\services;
+use App\Rules\CloseTime;
+use App\Rules\StartTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,8 +22,8 @@ class BranchController extends Controller
             'phone_number' => 'required|numeric',
             'lat' => 'required|numeric',
             'lon' => 'required|numeric',
-            'start_time' => 'required',
-            'close_time' => 'required'
+            'start_time' => ['required', new StartTime()],
+            'close_time' => ['required', new CloseTime()]
         ];
     }
 
@@ -31,6 +33,9 @@ class BranchController extends Controller
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+        if ($request->start_time >= $request->close_time) {
+            return redirect()->back()->with('fail', 'Start time should less than close time')->withInput($request->all());
         }
         $new_branch = Branches::create([
             'name' => $request->name,
@@ -83,12 +88,12 @@ class BranchController extends Controller
     public function details_api(Request $request)
     {
         $branch = Branches::with('services')->find($request->id);
-        if (!$branch->services->count()) {
-            return response()->json([
-                "status" => false,
-                'message' => 'No services for this branch, we will add later',
-            ], 401);
-        }
+//        if (!$branch->services->count()) {
+//            return response()->json([
+//                "status" => false,
+//                'message' => 'No services for this branch, we will add later',
+//            ], 401);
+//        }
         return response()->json([
             "status" => true,
             "services" => $branch->services

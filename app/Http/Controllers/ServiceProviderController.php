@@ -137,6 +137,11 @@ class ServiceProviderController extends Controller
         $lat1 = $request->lat;
         $lon1 = $request->lon;
         foreach ($service_provider->branches as $branch) {
+//            $now_time = Carbon::now()->addHour(2)->format("H:i:s");
+//            if ($branch->start_time <= $now_time) {
+//                return " start time is " . $branch->start_time . " now is " . $now_time;
+////                unset($branch);
+//            }
             $distance = $this->distance($lat1, $lon1, $branch->lat, $branch->lon);
             $branch->distance = $distance;
         }

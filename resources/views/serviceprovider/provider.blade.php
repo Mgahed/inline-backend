@@ -153,8 +153,13 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('start time') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="start-time" type="time" class="form-control" name="start_time"
-                                           required autocomplete="new-type" value="{{ old('start time') }}">
+                                    <input id="start-time" type="time" class="form-control @error('start_time') is-invalid @enderror" name="start_time"
+                                           required autocomplete="new-type" value="{{ old('start_time') }}">
+                                    @error('start_time')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -163,8 +168,13 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('close time') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="close-time" type="time" class="form-control" name="close_time"
-                                           required autocomplete="new-type" value="{{ old('close time') }}">
+                                    <input id="close-time" type="time" class="form-control @error('close_time') is-invalid @enderror" name="close_time"
+                                           required autocomplete="new-type" value="{{ old('close_time') }}">
+                                    @error('close_time')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
