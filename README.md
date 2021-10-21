@@ -1,6 +1,6 @@
 [comment]: <> (![Inline Logo][logo])
 
-# Inline <img src="https://raw.githubusercontent.com/Mgahed/inline-backend/master/public/images/logo/inline.jpg" width="50px" alt="Inline Logo"/>
+# <img src="https://raw.githubusercontent.com/Mgahed/inline-backend/master/public/images/logo/inline.jpg" width="50px" alt="Inline Logo"/> Inline
 
 
 ## Description
