@@ -13,6 +13,8 @@ class BranchService extends Model
 
     protected $fillable = [
         'branches_id',
-        'services_id'
+        'services_id',
+        'queue',
+        'current_turn'
     ];
 }

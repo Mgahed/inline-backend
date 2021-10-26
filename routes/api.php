@@ -39,6 +39,7 @@ Route::group(['middleware' => 'api'], function () {
     ///// branches
     Route::group(['middleware' => 'auth:api', 'prefix' => 'branch'], function () {
         Route::get('details', [BranchController::class, 'details_api']);
+        Route::get('current-turn', [BranchController::class, 'current_turn']);
     });
 });
 

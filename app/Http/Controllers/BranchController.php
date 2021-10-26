@@ -99,4 +99,13 @@ class BranchController extends Controller
             "services" => $branch->services
         ], 201);
     }
+
+    public function current_turn(Request $request)
+    {
+        $branch = BranchService::select('queue', 'current_turn')->where('branches_id', $request->branch_id)->where('services_id', $request->service_id)->first();
+        return response()->json([
+            "status" => true,
+            "result" => $branch
+        ], 201);
+    }
 }

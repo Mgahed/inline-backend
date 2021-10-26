@@ -17,6 +17,8 @@ class CreateBranchesServicesTable extends Migration
             $table->id();
             $table->integer('branches_id')->unsigned();
             $table->integer('services_id')->unsigned();
+            $table->Integer('queue')->default(0);
+            $table->Integer('current_turn')->default(0);
             $table->foreign('branches_id')->references('id')->on('branches');
             $table->foreign('services_id')->references('id')->on('services');
             $table->timestamps();
