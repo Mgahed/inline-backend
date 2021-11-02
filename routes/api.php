@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\ServiceProviderController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,7 @@ Route::group([
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::get('user-profile', [AuthController::class, 'userProfile']);
+    Route::get('user-profile', [AuthController::class, 'userProfile'])->middleware('auth:api');
 });
 Route::group(['middleware' => 'api'], function () {
     ///// provider
@@ -41,7 +42,14 @@ Route::group(['middleware' => 'api'], function () {
         Route::get('details', [BranchController::class, 'details_api']);
         Route::get('current-turn', [BranchController::class, 'current_turn']);
     });
+
+    Route::group(['prefix' => 'stripe'], function () {
+        Route::get('pay', function () {
+            return view('stripe.index');
+        });
+        Route::post('final-pay', [StripeController::class, 'stripe_order'])->name('stripe.order')->middleware('auth:api');
+    });
 });
 
-Route::get('google-map',[MyController::class, 'google_map'])->middleware('api');
+Route::get('google-map', [MyController::class, 'google_map'])->middleware('api');
 Route::get('sum', [MyController::class, 'my_controller'])->middleware('api');

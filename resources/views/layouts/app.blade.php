@@ -8,6 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta property="og:image" content="/images/logo/inline.jpg">
+    <meta name="description" content="You can reserve online service throw our app">
+    <link href="{{asset('images/logo/inline.jpg')}}" rel="shortcut icon">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
