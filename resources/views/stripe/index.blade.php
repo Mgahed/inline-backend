@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta property="og:image" content="/images/logo/inline.jpg">
-    <meta name="description" content="You can reserve online service throw our app">
+    <meta name="description" content="You can reserve online service through our app">
     <link href="{{asset('images/logo/inline.jpg')}}" rel="shortcut icon">
 
     <!-- Scripts -->
