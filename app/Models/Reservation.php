@@ -13,7 +13,8 @@ class Reservation extends Model
         'status',
         'reservation_number',
         'user_id',
-        'service_id'
+        'service_id',
+        'branch_service_id'
     ];
 
     public function user()
@@ -24,5 +25,10 @@ class Reservation extends Model
     public function service()
     {
         $this->belongsTo(services::class,'service_id','id');
+    }
+
+    public function branch_service()
+    {
+        $this->belongsTo(BranchService::class,'service_id','id');
     }
 }

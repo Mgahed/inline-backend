@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\MyController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,10 @@ Route::group(['middleware' => 'api'], function () {
     Route::group(['middleware' => 'auth:api', 'prefix' => 'branch'], function () {
         Route::get('details', [BranchController::class, 'details_api']);
         Route::get('current-turn', [BranchController::class, 'current_turn']);
+    });
+
+    Route::group(['middleware' => 'auth:api', 'prefix' => 'reservation'], function () {
+        Route::post('reserve',[ReservationController::class, 'reserve']);
     });
 
     Route::group(['prefix' => 'stripe'], function () {
