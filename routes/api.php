@@ -55,6 +55,6 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('final-pay', [StripeController::class, 'stripe_order'])->name('stripe.order')->middleware('auth:api');
     });
 });
-
+//test github
 Route::get('google-map', [MyController::class, 'google_map'])->middleware('api');
 Route::get('sum', [MyController::class, 'my_controller'])->middleware('api');
