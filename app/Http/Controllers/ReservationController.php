@@ -44,4 +44,18 @@ class ReservationController extends Controller
             "result" => $reservation
         ], 201);
     }
+
+    public function my_reservation()
+    {
+        $my_reservations = Reservation::select('reservations.status as status', 'reservations.reservation_number as my_turn', 'branches_services.queue as queue', 'branches_services.current_turn as current_turn', 'services.name as service_name', 'branches.name as branch_name', 'branches.phone_number as branch_number')
+            ->where('user_id', auth('api')->user()->id)
+            ->join('branches_services', 'branches_services.id', '=', 'reservations.branch_service_id')
+            ->join('services', 'services.id', '=', 'branches_services.services_id')
+            ->join('branches', 'branches.id', '=', 'branches_services.branches_id')
+            ->get();
+        return response()->json([
+            "status" => true,
+            "result" => $my_reservations
+        ], 201);
+    }
 }

@@ -46,6 +46,7 @@ Route::group(['middleware' => 'api'], function () {
 
     Route::group(['middleware' => 'auth:api', 'prefix' => 'reservation'], function () {
         Route::post('reserve',[ReservationController::class, 'reserve']);
+        Route::get('mine',[ReservationController::class, 'my_reservation']);
     });
 
     Route::group(['prefix' => 'stripe'], function () {

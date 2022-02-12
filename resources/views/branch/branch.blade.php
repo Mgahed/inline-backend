@@ -66,6 +66,7 @@
                                     <tr>
                                         <th scope="col">Name</th>
                                         <th scope="col">Cost</th>
+                                        <th scope="col"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -74,6 +75,9 @@
                                         <tr>
                                             <td>{{$service->name}}</td>
                                             <td>{{$service->cost}}</td>
+                                            <td><a href="{{route('simulate',[$branch->id,$service->id])}}"
+                                                   class="btn btn-info">Simulate</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

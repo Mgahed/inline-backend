@@ -44,4 +44,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/add', [ServiceController::class, 'add'])->name('add.service');
     });
 
+    ////////// simulate
+    Route::group(['prefix' => 'simulate'], function () {
+        Route::get('/increment/{id}', [BranchController::class, 'simulate_increment'])->name('simulate.increment.turn');
+        Route::get('/reset/{id}', [BranchController::class, 'simulate_reset'])->name('simulate.reset');
+        Route::get('/{branch_id}/{service_id}', [BranchController::class, 'simulate'])->name('simulate');
+    });
+
 });
