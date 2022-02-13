@@ -30,6 +30,8 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">email</th>
                                     <th scope="col">Phone Number</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +41,14 @@
                                         <td>{{$user->name}}</td>
                                         <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
                                         <td><a href="tel:{{$user->phone_number}}">{{$user->phone_number}}</a></td>
+                                        <td>{{$user->user_role}}</td>
+                                        <td>
+                                            @if ($user->user_role == 'admin')
+                                                <a href="{{route('set.normal',$user->id)}}" class="btn btn-danger">Set normal</a>
+                                            @else
+                                                <a href="{{route('set.admin',$user->id)}}" class="btn btn-success">Set admin</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

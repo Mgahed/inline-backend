@@ -23,6 +23,8 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/set-admin/{id}', [App\Http\Controllers\HomeController::class, 'set_admin'])->name('set.admin');
+    Route::get('/set-normal/{id}', [App\Http\Controllers\HomeController::class, 'set_normal'])->name('set.normal');
 
     ////////// service provider
     Route::group(['prefix' => 'service-provider'], function () {
