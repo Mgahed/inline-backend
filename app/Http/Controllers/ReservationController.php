@@ -15,6 +15,14 @@ class ReservationController extends Controller
     {
         $branch_id = $request->branches_id;
         $service_id = $request->services_id;
+        $branch_service = BranchService::where('branches_id', $branch_id)->where('services_id', $service_id)->first();
+        $check_if_reserved = Reservation::where('branch_service_id', $branch_service->id)->where('user_id', auth('api')->user()->id)->where('status', 'confirmed')->first();
+        if ($check_if_reserved) {
+            return response()->json([
+                "status" => false,
+                "message" => "You already made a reservation for this service",
+            ], 401);
+        }
         $cost = services::findOrFail($service_id)->first()->cost;
         $diff = auth('api')->user()->wallet - $cost;
         if ($diff < 0) {
